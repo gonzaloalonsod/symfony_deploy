@@ -9,10 +9,8 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    Symfony Base
+    <h1>{{ controller_name }}! ✅</h1>
     <br>
-    <a class="btn btn-primary" href="{{ path('admin') }}">Administrator</a>
+    <a class="btn btn-primary" href="{{ path('admin') }}">{% trans %}Administrator{% endtrans %}</a>
 </div>
 {% endblock %}
