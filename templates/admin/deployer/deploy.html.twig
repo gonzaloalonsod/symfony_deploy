@@ -1,0 +1,12 @@
+{% extends '@!EasyAdmin/page/content.html.twig' %}
+
+{% block page_content %}
+	<p>
+		<strong>{{ 'Deploy'|trans }}</strong>
+	</p>
+	<div class="card-group">
+		<div class="card">
+			{{ content|raw|nl2br }}
+		</div>
+	</div>
+{% endblock %}

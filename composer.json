@@ -17,6 +17,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "easycorp/easyadmin-bundle": "^3.0",
         "sensio/framework-extra-bundle": "^5.2",
+        "sensiolabs/ansi-to-html": "^1.2",
         "sentry/sentry-symfony": "^3.5",
         "symfony/asset": "5.2.*",
         "symfony/console": "5.2.*",
@@ -42,7 +43,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "^1.31",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*"
     },

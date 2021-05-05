@@ -39,6 +39,7 @@ symfony console doc:fix:load
 
 ### Use
 - [Symfony](https://symfony.com)
+- [Component - process](https://symfony.com/doc/current/components/process.html)
 - [Easy Admin Bundle](https://symfony.com/doc/master/bundles/EasyAdminBundle/index.html)
 
 ## Author
