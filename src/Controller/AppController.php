@@ -13,7 +13,7 @@ class AppController extends AbstractController
     public function homepage()
     {
         return $this->render('app/homepage.html.twig', [
-            'controller_name' => 'Deployer',
+            'controller_name' => 'Deploy',
         ]);
     }
 }
