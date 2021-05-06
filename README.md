@@ -1,8 +1,10 @@
 # Symfony Deploy
 
-### A web implementation tool for PHP
-
+### A web implementation tool for Deployer
 - [https://deployer.org/](https://deployer.org/)
+
+### A web implementation tool for Capistrano
+- [https://github.com/capistrano/symfony](https://github.com/capistrano/symfony)
 
 ## Installation
 

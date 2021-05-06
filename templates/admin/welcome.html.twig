@@ -9,7 +9,11 @@
 			<div class="list-group">
 				<a href="{{ path('admin_deployer_deploy') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
 					{{ 'deployer.deploy'|trans }}
-					<span class="badge badge-primary badge-pill">1</span>
+					<span class="badge badge-primary badge-pill">dep</span>
+				</a>
+				<a href="{{ path('admin_capistrano_deploy') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+					{{ 'capistrano.deploy'|trans }}
+					<span class="badge badge-primary badge-pill">cap</span>
 				</a>
 			</div>
 		</div>

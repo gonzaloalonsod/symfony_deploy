@@ -31,7 +31,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Deployer');
+            ->setTitle('Deploy');
     }
 
     public function configureCrud(): Crud
@@ -44,12 +44,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fas fa-folder-open', User::class);
     }
 
-    // Command
-
     /**
      * @Route("/admin/deployer/deploy", name="admin_deployer_deploy")
      */
-    public function executeDeployerDeploy(KernelInterface $kernel): Response
+    public function deployerDeployAction(KernelInterface $kernel): Response
     {
         $application = new Application($kernel);
         $application->setAutoExit(false);
@@ -73,7 +71,39 @@ class DashboardController extends AbstractDashboardController
         $converter = new AnsiToHtmlConverter();
         $content = $output->fetch();
 
-        return $this->render('admin/deployer/deploy.html.twig', [
+        return $this->render('deployer/deploy.html.twig', [
+            'content' => $converter->convert($content)
+        ]);
+    }
+
+    /**
+     * @Route("/admin/capistrano/deploy", name="admin_capistrano_deploy")
+     */
+    public function capistranoDeployAction(KernelInterface $kernel): Response
+    {
+        $application = new Application($kernel);
+        $application->setAutoExit(false);
+
+        $input = new ArrayInput([
+            'command' => 'capistrano:deploy',
+            // (optional) define the value of command arguments
+            // 'fooArgument' => 'barValue',
+            // (optional) pass options to the command
+            // '--message-limit' => $messages,
+        ]);
+
+        // You can use NullOutput() if you don't need the output
+        $output = new BufferedOutput(
+            OutputInterface::VERBOSITY_NORMAL,
+            true // true for decorated
+        );
+        $application->run($input, $output);
+
+        // return the output
+        $converter = new AnsiToHtmlConverter();
+        $content = $output->fetch();
+
+        return $this->render('capistrano/deploy.html.twig', [
             'content' => $converter->convert($content)
         ]);
     }
