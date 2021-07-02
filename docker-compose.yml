@@ -9,7 +9,7 @@ services:
         - .:/application
       environment:
         - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_DATABASE=symfony
+        - MYSQL_DATABASE=symfony_deploy
         - MYSQL_USER=demo
         - MYSQL_PASSWORD=demo
       ports:
