@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Project;
 use App\Entity\User;
+use App\Repository\ProjectRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -20,12 +22,25 @@ use SensioLabs\AnsiConverter\AnsiToHtmlConverter;
 
 class DashboardController extends AbstractDashboardController
 {
+    public static function getSubscribedServices(): array
+    {
+        return array_merge(parent::getSubscribedServices(), [
+            ProjectRepository::class => ProjectRepository::class
+        ]);
+    }
+
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-        return $this->render('admin/welcome.html.twig');
+        $projectsDeployer = $this->get(ProjectRepository::class)->findByDeploymentTool(1);
+        $projectsCapistrano = $this->get(ProjectRepository::class)->findByDeploymentTool(2);
+
+        return $this->render('admin/dashboard/index.html.twig', [
+            'projectsDeployer' => $projectsDeployer,
+            'projectsCapistrano' => $projectsCapistrano,
+        ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -42,23 +57,36 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToCrud('User', 'fas fa-folder-open', User::class);
+        yield MenuItem::linkToCrud('Project', 'fas fa-folder-open', Project::class);
     }
 
     /**
-     * @Route("/admin/deployer/deploy", name="admin_deployer_deploy")
+     * @Route("/admin/deployer/deploy/{project}", name="admin_deployer_deploy")
      */
-    public function deployerDeployAction(KernelInterface $kernel): Response
+    public function deployerDeployAction(
+        KernelInterface $kernel,
+        Project $project = null
+    ): Response
     {
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
-        $input = new ArrayInput([
-            'command' => 'deployer:deploy',
-            // (optional) define the value of command arguments
-            // 'fooArgument' => 'barValue',
-            // (optional) pass options to the command
-            // '--message-limit' => $messages,
-        ]);
+        if ($project) {
+            $input = new ArrayInput([
+                'command' => 'deployer:deploy',
+                'depDirectory' => $project->getDepDirectory(),
+                'name' => $project->getName(),
+                'script' => $project->getScript(),
+            ]);
+        } else {
+            $input = new ArrayInput([
+                'command' => 'deployer:deploy',
+                // (optional) define the value of command arguments
+                // 'fooArgument' => 'barValue',
+                // (optional) pass options to the command
+                // '--message-limit' => $messages,
+            ]);
+        }
 
         // You can use NullOutput() if you don't need the output
         $output = new BufferedOutput(

@@ -11,6 +11,22 @@
 					{{ 'deployer.deploy'|trans }}
 					<span class="badge badge-primary badge-pill">dep</span>
 				</a>
+			</div>
+		</div>
+		{% for projectDeployer in projectsDeployer %}
+			<div class="card">
+				<div class="list-group">
+					<a href="{{ path('admin_deployer_deploy', {project: projectDeployer.id}) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+						{{ projectDeployer.name }}
+						<span class="badge badge-primary badge-pill">dep</span>
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="card-group">
+		<div class="card">
+			<div class="list-group">
 				<a href="{{ path('admin_capistrano_deploy') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
 					{{ 'capistrano.deploy'|trans }}
 					<span class="badge badge-primary badge-pill">cap</span>
