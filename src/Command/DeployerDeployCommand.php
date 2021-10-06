@@ -55,7 +55,7 @@ class DeployerDeployCommand extends Command
         $depPath = $executableFinder->find('dep');
         if ($depPath) {
             if ($depDirectory && $name && $script) {
-                $process = new Process(['sh', $script]);
+                $process = new Process([$script]);
             } else {
                 $process = new Process([$depPath, '-h']);
             }
