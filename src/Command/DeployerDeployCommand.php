@@ -60,13 +60,13 @@ class DeployerDeployCommand extends Command
         // $executableFinder = new ExecutableFinder();
         // $depPath = $executableFinder->find('dep');
         $depPathVendor = $this->projectDir.'/vendor/deployer/deployer/bin/dep';
-        $deployPath = $this->projectDir.'/../../shared/scripts/'.$depDirectory.'/deploy';
+        $deployPath = $this->projectDir.'/../../shared/scripts/'.$depDirectory.'/deploy.php';
         // if ($depPath) {
         if ($depDirectory && $name && $script) {
             $io->note($depPathVendor);
             $io->note($deployPath);
             // $process = new Process([$script]);
-            $process = new Process([$depPathVendor.' '.$deployPath.' '.$name]);
+            $process = new Process([$depPathVendor, '-f='.$deployPath.' '.$name]);
         } else {
             $process = new Process([$depPathVendor, '-V']);
         }
