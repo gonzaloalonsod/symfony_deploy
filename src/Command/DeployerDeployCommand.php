@@ -66,7 +66,7 @@ class DeployerDeployCommand extends Command
             $io->note($depPathVendor);
             $io->note($deployPath);
             // $process = new Process([$script]);
-            $process = new Process([$depPathVendor, '-f='.$deployPath.' '.$name]);
+            $process = new Process([$depPathVendor.' -f='.$deployPath.' '.$name]);
         } else {
             $process = new Process([$depPathVendor, '-V']);
         }
